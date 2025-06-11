@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Power BI Business Dashboard Blog</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #2c3e50;
+      padding: 2rem;
+      line-height: 1.7;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1, h2, h3 {
+      color: #1a252f;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    ul {
+      margin-bottom: 1rem;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    .highlight {
+      background-color: #fff;
+      border-left: 4px solid #2980b9;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+<h2>🧩 Project Objective</h2>
+<p>The primary goal was to develop a dashboard that allows stakeholders to:</p>
+<ul>
+  <li>Compare <strong>Actual vs. Budget</strong> and <strong>Forecasted</strong> spending over time</li>
+  <li>Identify <strong>over- and under-spending</strong> by country, date, and department</li>
+  <li>Provide <strong>financial visibility</strong> across departments and managerial units</li>
+  <li>Enable <strong>interactive exploration</strong> using filters and slicers</li>
+</ul>
+
+<h2>📂 Data Overview</h2>
+<p>The dataset includes:</p>
+<ul>
+  <li><strong>Financials:</strong> Actual, Budget, Forecast (monthly)</li>
+  <li><strong>Hierarchy:</strong> Department Manager → IT Area → IT Department</li>
+  <li><strong>Geography:</strong> Country-wise spending (USA, UK, Germany, etc.)</li>
+  <li><strong>Time:</strong> Jan–Nov 2020</li>
+</ul>
+<p>Each data row is uniquely identified by a combination of department, manager, country, and date, making it easy to model and filter in Power BI.</p>
+
+<h2>🧠 Dashboard Features & Visuals</h2>
+
+<h3>1️⃣ KPI Summary Cards</h3>
+<p>At the top of the dashboard, high-level KPIs summarize:</p>
+<ul>
+  <li>Total Actual Spend</li>
+  <li>Total Budget</li>
+  <li>Total Forecast</li>
+</ul>
+<div class="highlight">
+  📌 <strong>Example:</strong> Actual spend is <strong>$258M</strong> and Budget is <strong>$289M</strong>, helping executives instantly gauge financial performance.
+</div>
+
+<h3>2️⃣ Hierarchical Matrix by Department</h3>
+<p>This matrix lets users drill down from manager to IT department, revealing who controls specific budgets:</p>
+<ul>
+  <li><strong>Department Manager</strong> → <strong>IT Area</strong> → <strong>IT Department</strong></li>
+</ul>
+<div class="highlight">
+  👤 <strong>Example:</strong> Jim Biggs oversees both “Functional R3” and “Governance Administration.”
+</div>
+
+<h3>3️⃣ Line Chart: Actual vs Budget vs Forecast</h3>
+<p>This time-series chart shows how actual spend tracks against budget and forecast over months:</p>
+<ul>
+  <li><strong>X-Axis:</strong> Jan–Nov 2020</li>
+  <li><strong>Y-Axis:</strong> Spending ($M)</li>
+  <li><strong>Lines:</strong> Actual | Budget | Forecast</li>
+</ul>
+<p>It helps identify trends, seasonal spending spikes, and pacing accuracy.</p>
+
+<h3>4️⃣ Variance Chart (Bar & Line)</h3>
+<p>This dual chart includes:</p>
+<ul>
+  <li><strong>Bar:</strong> Budget minus Forecast</li>
+  <li><strong>Line:</strong> % difference from Forecast</li>
+</ul>
+<p>Helps identify over- or under-forecasting in different months.</p>
+<div class="highlight">
+  📈 <strong>Insight:</strong> A positive variance >30% may signal poor planning or delays.
+</div>
+
+<h3>5️⃣ Country-Level Spending Breakdown</h3>
+<p>Bar chart showing Actual, Budget, and Forecast by country:</p>
+<ul>
+  <li>Top countries: USA, UK, France, Germany, Puerto Rico</li>
+  <li>Unit: Billions</li>
+</ul>
+<p>This enables comparison of spending across key markets.</p>
+
+<h3>6️⃣ Interactive Slicers</h3>
+<p>Users can filter the entire dashboard by:</p>
+<ul>
+  <li>Country</li>
+  <li>IT Department</li>
+  <li>Manager or IT Area</li>
+  <li>Month</li>
+</ul>
+<p>This improves usability for individual department heads and analysts.</p>
+
+<h2>📈 Business Value</h2>
+<p>
+This dashboard empowers teams to:
+</p>
+<ul>
+  <li>Identify overspending and budget overruns early</li>
+  <li>Track spending patterns over time</li>
+  <li>Compare regional financial performance</li>
+  <li>Improve forecast accuracy with historical visibility</li>
+</ul>
+
+<h2>🛠 Tools & Skills Used</h2>
+<ul>
+  <li>Power BI Desktop</li>
+  <li>Power Query for data prep</li>
+  <li>DAX for calculations (variance, totals)</li>
+  <li>Data modeling with relationships and hierarchies</li>
+</ul>
+
+<h2>✅ Final Thoughts</h2>
+<p>
+This Power BI dashboard transforms financial reporting into a dynamic, decision-making tool. It’s not just about visualizing numbers — it’s about enabling business users to explore data intuitively, identify problems early, and make data-backed decisions confidently.
+</p>
+<p>
+To see more dashboards or view the data model and DAX measures behind the scenes, check out my <a href="#">portfolio</a> or <a href="#">GitHub</a>.
+</p>
+
+</body>
+</html>
