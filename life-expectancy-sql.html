@@ -6,13 +6,17 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f9f9f9;
-      padding: 40px;
-      line-height: 1.6;
-      color: #333;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.7;
+      color: #2c3e50;
     }
     h1, h2, h3 {
-      color: #2c3e50;
+      color: #1a252f;
+    }
+    a {
+      color: #2980b9;
     }
     .code-box {
       background-color: #1e1e1e;
@@ -22,128 +26,160 @@
       overflow-x: auto;
       font-family: 'Courier New', monospace;
       font-size: 0.9rem;
-      margin: 1em 0;
+      margin: 1.2em 0;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    p {
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
 
-  <h1>🩺 Cleaning and Exploring Life Expectancy Data with SQL</h1>
+<h1>Cleaning and Exploring Life Expectancy Data with SQL</h1>
 
-  <h2>📊 Data Source</h2>
-  <p>
-    This project uses the <strong>World Life Expectancy</strong> dataset from 
-    <a href="https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who" target="_blank">Kaggle</a>. 
-    It covers data from 2000 to 2015 for countries worldwide and includes indicators like GDP, BMI, adult mortality, and development status.
-  </p>
+<h2>📚 Background</h2>
+<p>
+The <strong>World Life Expectancy</strong> dataset, available on 
+<a href="https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who" target="_blank">Kaggle</a>, 
+contains health and economic indicators across more than 180 countries, covering the years 2000 to 2015. 
+It includes metrics such as life expectancy, GDP, BMI, status (Developed/Developing), and adult mortality.
+Before performing meaningful analysis, it’s critical to clean this data to ensure accuracy and consistency.
+</p>
 
-  <h2>🧹 Step 1: Data Cleaning</h2>
+<h2>🧼 Step 1: Data Cleaning</h2>
 
-  <h3>🔁 Removing Duplicates</h3>
-  <p>First, identify duplicate rows based on <code>Country</code> and <code>Year</code>:</p>
-  <div class="code-box">
-<pre><code>SELECT Country, Year, CONCAT(Country, Year), COUNT(CONCAT(Country, Year))
+<h3>1️⃣ Identifying and Removing Duplicates</h3>
+<p>
+To start, we check for duplicate records based on <code>Country</code> and <code>Year</code>:
+</p>
+<div class="code-box">
+<pre><code>SELECT Country, Year, COUNT(*)
 FROM worldlifeexpectancy
 GROUP BY Country, Year
-HAVING COUNT(*) > 1;
-</code></pre>
-  </div>
+HAVING COUNT(*) > 1;</code></pre>
+</div>
 
-  <p>Use <code>ROW_NUMBER()</code> to retain only one instance per combination:</p>
-  <div class="code-box">
+<p>
+To remove duplicates while retaining one row per <code>Country-Year</code> pair, we use <code>ROW_NUMBER()</code>:
+</p>
+<div class="code-box">
 <pre><code>DELETE FROM worldlifeexpectancy
 WHERE Row_ID IN (
-  SELECT Row_ID FROM (
+  SELECT Row_ID
+  FROM (
     SELECT Row_ID,
-           ROW_NUMBER() OVER(PARTITION BY CONCAT(Country, Year) ORDER BY CONCAT(Country, Year)) AS Row_Num
+           ROW_NUMBER() OVER(PARTITION BY Country, Year ORDER BY Country) AS Row_Num
     FROM worldlifeexpectancy
-  ) AS Row_table
+  ) AS ranked
   WHERE Row_Num > 1
 );</code></pre>
-  </div>
+</div>
 
-  <h3>🏷 Fixing Missing 'Status'</h3>
-  <p>Fill missing development statuses using data from other rows for the same country:</p>
-  <div class="code-box">
+<h3>2️⃣ Handling Missing <code>Status</code> Values</h3>
+<p>
+Some rows had empty <code>Status</code> fields. We filled these in based on known values from other entries of the same country.
+</p>
+<div class="code-box">
 <pre><code>UPDATE worldlifeexpectancy t1
 JOIN worldlifeexpectancy t2
   ON t1.Country = t2.Country
 SET t1.Status = t2.Status
 WHERE t1.Status = ''
-  AND t2.Status <> '';</code></pre>
-  </div>
+AND t2.Status != '';</code></pre>
+</div>
 
-  <h3>💔 Estimating Missing Life Expectancy Values</h3>
-  <p>Interpolate missing values by averaging adjacent years:</p>
-  <div class="code-box">
+<h3>3️⃣ Estimating Missing Life Expectancy Values</h3>
+<p>
+For missing life expectancy values, we estimated them using the average of the previous and next year’s values for the same country:
+</p>
+<div class="code-box">
 <pre><code>UPDATE worldlifeexpectancy t1
 JOIN worldlifeexpectancy t2 ON t1.Country = t2.Country AND t1.Year = t2.Year - 1
 JOIN worldlifeexpectancy t3 ON t1.Country = t3.Country AND t1.Year = t3.Year + 1
 SET t1.`Life expectancy` = ROUND((t2.`Life expectancy` + t3.`Life expectancy`) / 2, 1)
 WHERE t1.`Life expectancy` = '';</code></pre>
-  </div>
+</div>
 
-  <h2>📈 Step 2: Exploratory Data Analysis (EDA)</h2>
+<h2>📊 Step 2: Exploratory Data Analysis (EDA)</h2>
 
-  <h3>⏳ Life Expectancy Progress by Country</h3>
-  <div class="code-box">
+<h3>⏳ Life Expectancy Progress Over 15 Years</h3>
+<p>
+We calculated the improvement in life expectancy for each country between 2000 and 2015.
+</p>
+<div class="code-box">
 <pre><code>SELECT Country,
-       MIN(`Life expectancy`) AS Min_Life_Expectancy,
-       MAX(`Life expectancy`) AS Max_Life_Expectancy,
-       ROUND(MAX(`Life expectancy`) - MIN(`Life expectancy`), 1) AS Life_Increase_15_Years
+       MIN(`Life expectancy`) AS Min_Life,
+       MAX(`Life expectancy`) AS Max_Life,
+       ROUND(MAX(`Life expectancy`) - MIN(`Life expectancy`), 1) AS Increase
 FROM worldlifeexpenctancy
 GROUP BY Country
-ORDER BY Life_Increase_15_Years DESC;</code></pre>
-  </div>
+ORDER BY Increase DESC;</code></pre>
+</div>
 
-  <h3>🌍 Global Average Over Time</h3>
-  <div class="code-box">
+<h3>📆 Global Life Expectancy Trend by Year</h3>
+<p>
+This query shows the average life expectancy globally for each year.
+</p>
+<div class="code-box">
 <pre><code>SELECT Year, ROUND(AVG(`Life expectancy`), 2) AS Avg_Life_Expectancy
 FROM worldlifeexpenctancy
 GROUP BY Year
 ORDER BY Year;</code></pre>
-  </div>
+</div>
 
-  <h3>💰 Relationship Between GDP and Life Expectancy</h3>
-  <div class="code-box">
+<h3>💵 Relationship Between GDP and Life Expectancy</h3>
+<p>
+We investigated the relationship between GDP and life expectancy, computing averages per country.
+</p>
+<div class="code-box">
 <pre><code>SELECT Country,
        ROUND(AVG(`Life expectancy`), 2) AS Life_Exp,
-       ROUND(AVG(GDP), 1) AS GDP
+       ROUND(AVG(GDP), 1) AS Avg_GDP
 FROM worldlifeexpenctancy
 GROUP BY Country
-ORDER BY GDP DESC;</code></pre>
-  </div>
+ORDER BY Avg_GDP DESC;</code></pre>
+</div>
 
-  <h3>High vs. Low GDP Countries</h3>
-  <div class="code-box">
+<p>
+We then segmented countries into low and high GDP brackets (using 1500 as the threshold) to compare life expectancy:
+</p>
+<div class="code-box">
 <pre><code>SELECT 
-  AVG(CASE WHEN GDP >= 1500 THEN `Life expectancy` ELSE NULL END) AS High_GDP_Life_Expectancy,
-  AVG(CASE WHEN GDP <= 1500 THEN `Life expectancy` ELSE NULL END) AS Low_GDP_Life_Expectancy
+    AVG(CASE WHEN GDP >= 1500 THEN `Life expectancy` ELSE NULL END) AS High_GDP_Life,
+    AVG(CASE WHEN GDP &lt; 1500 THEN `Life expectancy` ELSE NULL END) AS Low_GDP_Life
 FROM worldlifeexpenctancy;</code></pre>
-  </div>
+</div>
 
-  <h3>🧍🏽 Developed vs. Developing</h3>
-  <div class="code-box">
-<pre><code>SELECT Status, ROUND(AVG(`Life expectancy`), 1) AS Avg_Life_Expectancy
+<h3>🌍 Developed vs. Developing</h3>
+<p>
+Next, we compared average life expectancy based on country status:
+</p>
+<div class="code-box">
+<pre><code>SELECT Status, ROUND(AVG(`Life expectancy`), 1) AS Avg_Life
 FROM worldlifeexpenctancy
 GROUP BY Status;</code></pre>
-  </div>
+</div>
 
-  <h3>📉 Rolling Adult Mortality Trends</h3>
-  <div class="code-box">
+<h3>📉 Rolling Adult Mortality Trends</h3>
+<p>
+This query calculates a cumulative adult mortality figure over the years for each country:
+</p>
+<div class="code-box">
 <pre><code>SELECT Country, Year, `Life expectancy`, `Adult Mortality`,
        SUM(`Adult Mortality`) OVER(PARTITION BY Country ORDER BY Year) AS Rolling_Total
 FROM worldlifeexpenctancy;</code></pre>
-  </div>
+</div>
 
-  <h2>✅ Final Thoughts</h2>
-  <p>
-    This project demonstrates how effective SQL can be in transforming raw health data into actionable insights. By cleaning and analyzing the life expectancy dataset, I was able to identify trends, spot disparities between nations, and understand the broader global health picture.
-  </p>
-  <p>
-    You can explore the full code and results in my <a href="#">GitHub repository</a>.
-  </p>
+<h2>🧠 Final Thoughts</h2>
+<p>
+This project highlights how SQL can be used not only for data retrieval, but also for powerful data transformation and analysis. By cleaning inconsistencies and filling in missing values, we laid a solid foundation for insights into global health trends. From understanding GDP's impact on life expectancy to identifying progress in developing countries, SQL helped turn raw Kaggle data into meaningful stories.
+</p>
+
+<p>
+If you found this helpful, feel free to explore other SQL-based analysis projects in my <a href="#">portfolio</a>!
+</p>
 
 </body>
 </html>
+
