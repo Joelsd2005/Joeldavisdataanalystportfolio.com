@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tracking US Public Debt Using Excel</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #2c3e50;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #1a252f;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    .highlight {
+      background-color: #fff;
+      border-left: 4px solid #2980b9;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+<h1>📉 Tracking US Public Debt Using Excel</h1>
+
+<h2>🧠 Project Overview</h2>
+<p>
+In this project, I built an Excel-based tracker to analyze the growth of <strong>U.S. public debt</strong> over time. Using historical data, I created a model that could help a financial agency identify trends, growth patterns, and projected future debt values.
+</p>
+<p>
+The tracker was designed to answer key questions such as:
+</p>
+<ul>
+  <li>What has been the yearly growth of publicly held debt?</li>
+  <li>Which months historically see the highest increases in debt?</li>
+  <li>How is the debt expected to grow over the next few years?</li>
+</ul>
+
+<h2>📦 Business Scenario</h2>
+<div class="highlight">
+  🧾 <em>"You were hired by a small debt agency in Washington, D.C., to develop a tracker and model the historical and future trend of U.S. debt. The agency wants to understand how the debt has evolved and what trajectory it might follow over the next few years."</em>
+</div>
+
+<h2>🔍 Step 1: Raw Data Preparation</h2>
+<p>
+I started with raw data from the U.S. Treasury, which included:
+</p>
+<ul>
+  <li>Debt Held by the Public</li>
+  <li>Intragovernmental Holdings</li>
+  <li>Total Public Debt Outstanding (daily values)</li>
+</ul>
+<p>
+I cleaned the dataset by:
+</p>
+<ul>
+  <li>Standardizing date formats</li>
+  <li>Formatting large values for readability (e.g., $ trillions)</li>
+  <li>Removing blanks and duplicates</li>
+  <li>Creating helper columns for calculations</li>
+</ul>
+
+<h2>📈 Step 2: Yearly Debt Growth Analysis</h2>
+<p>
+To understand annual trends, I computed the year-over-year percentage increase for each debt category.
+</p>
+<p><strong>Formulas used:</strong></p>
+<div class="highlight">
+  <code>= (CurrentYearDebt - PreviousYearDebt) / PreviousYearDebt</code>
+</div>
+<p>
+This allowed me to detect years of significant borrowing increases, often linked to economic events (e.g., 2008 financial crisis, COVID-19 stimulus).
+</p>
+
+<h2>📆 Step 3: Monthly Historical Trends</h2>
+<p>
+I examined which months historically saw the largest increases in total debt using pivot tables and formulas.
+</p>
+<ul>
+  <li><strong>MONTH()</strong> to extract month</li>
+  <li><strong>AVERAGEIFS()</strong> to calculate average change</li>
+  <li>Pivot tables to summarize by month</li>
+</ul>
+<p>
+Findings revealed consistent growth in months like <strong>March</strong> and <strong>October</strong>—typically linked to fiscal budget releases and adjustments.
+</p>
+
+<h2>📊 Step 4: Projecting Future Growth</h2>
+<p>
+Using a 5-year average growth rate, I projected debt levels for upcoming years using compound growth logic:
+</p>
+<div class="highlight">
+  <code>= PreviousYearDebt * (1 + AvgGrowthRate)</code>
+</div>
+<p>
+The projections were visualized using line charts to show the upward trajectory in public borrowing under current trends.
+</p>
+
+<h2>📋 Final Outputs</h2>
+<p>
+I summarized key findings in a final dashboard sheet that included:
+</p>
+<ul>
+  <li>Year-over-year growth figures</li>
+  <li>Best and worst months historically</li>
+  <li>Forecasted debt through 2030</li>
+</ul>
+<p>
+This sheet gave the agency a clear, digestible view of past and future debt trends.
+</p>
+
+<h2>🛠 Tools & Excel Skills Used</h2>
+<ul>
+  <li>Formulas: <code>IF</code>, <code>AVERAGEIFS</code>, <code>YEAR</code>, <code>MONTH</code>, <code>INDEX</code>, <code>MATCH</code></li>
+  <li>Data Cleaning: Column trimming, type fixing, formatting</li>
+  <li>Pivot Tables: Monthly and annual summaries</li>
+  <li>Forecasting: Simple growth model</li>
+  <li>Charts: Line, column charts for clear visualizations</li>
+</ul>
+
+<h2>✅ Final Thoughts</h2>
+<p>
+This project demonstrated Excel’s power in time series and financial analysis. From data cleaning to forecasting, Excel provided all the tools needed to turn raw debt figures into valuable insights for planning and policymaking.
+</p>
+<p>
+You can explore more of my Excel, Power BI, and SQL projects by visiting my <a href="index.html">portfolio</a> 
+</p>
+
+</body>
+</html>
