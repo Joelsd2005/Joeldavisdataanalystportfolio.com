@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Exploring Movie Genres with Python</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #2c3e50;
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.7;
+    }
+    h1, h2, h3 {
+      color: #1a252f;
+    }
+    p {
+      margin-bottom: 1rem;
+    }
+    ul {
+      margin-bottom: 1rem;
+      padding-left: 1.2rem;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    .highlight {
+      background-color: #fff;
+      border-left: 4px solid #2980b9;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+
+<h1>🎬 Exploring Movie Genres with Python</h1>
+
+<h2>🧠 Project Overview</h2>
+<p>
+Movies are more than entertainment — they're a data-rich canvas for analysis. In this project, I used Python to explore trends in <strong>movie genres</strong>, their <strong>financial performance</strong>, and <strong>audience reception</strong> using a dataset of IMDB movie metadata.
+</p>
+<p>
+My goals included answering:
+</p>
+<ul>
+  <li>Which genres are the most common?</li>
+  <li>Which genres generate the most revenue or profit?</li>
+  <li>Are popular or highly-rated movies more successful?</li>
+  <li>How does budget impact reception and performance?</li>
+</ul>
+
+<h2>📂 Data Cleaning & Preparation</h2>
+<ul>
+  <li>Removed duplicate entries</li>
+  <li>Dropped rows missing genre data</li>
+  <li>Created a <code>profit</code> column = <code>revenue - budget</code></li>
+  <li>Split multi-genre strings into individual rows using <code>str.split('|')</code> + <code>stack()</code></li>
+</ul>
+
+<h2>🔍 Exploratory Analysis</h2>
+
+<h3>🎭 Q1: Most Common Genres</h3>
+<p>
+Grouped by genre and counted unique movie titles. The most frequent genres included:
+</p>
+<ul>
+  <li>Drama</li>
+  <li>Comedy</li>
+  <li>Action</li>
+  <li>Thriller</li>
+</ul>
+<p>
+Visuals: Pie and horizontal bar charts
+</p>
+
+<h3>💰 Q2: Average Budget and Revenue by Genre</h3>
+<p>
+Grouped data by genre and calculated average budget and revenue. Bar charts revealed:
+</p>
+<ul>
+  <li><strong>Highest average budget:</strong> Action, Adventure</li>
+  <li><strong>Strong average revenue:</strong> Animation, Fantasy</li>
+</ul>
+
+<h3>📈 Q3: Most Profitable Genres</h3>
+<p>
+By subtracting average budget from revenue, I found that:
+</p>
+<ul>
+  <li><strong>Animation and Fantasy</strong> are highly profitable genres</li>
+</ul>
+<p>These genres benefit from family audiences and long-term appeal.</p>
+
+<h3>🔥 Q4: Most Popular Genres</h3>
+<p>
+Based on the dataset's popularity metric, top genres included:
+</p>
+<ul>
+  <li>Action</li>
+  <li>Adventure</li>
+  <li>Science Fiction</li>
+</ul>
+
+<h3>⭐ Q5: Highest-Rated Genres (vote average ≥ 8)</h3>
+<p>
+Filtered to movies with vote average ≥ 8, the most highly-rated genres were:
+</p>
+<ul>
+  <li>Documentary</li>
+  <li>History</li>
+</ul>
+<p>
+These genres, while not blockbusters, are often praised for their quality and storytelling.
+</p>
+
+<h2>🧪 Hypothesis Testing</h2>
+
+<h3>H1: Do highly-rated movies make more revenue?</h3>
+<p>
+Plotted <code>vote_average</code> vs <code>revenue</code> with regression line.
+</p>
+<div class="highlight">
+📉 Result: Weak correlation — high ratings don't guarantee commercial success.
+</div>
+
+<h3>H2: Do popular movies earn more revenue?</h3>
+<p>
+Plotted <code>popularity</code> vs <code>revenue</code>.
+</p>
+<div class="highlight">
+✅ Clear correlation — popular movies often drive higher box office returns.
+</div>
+
+<h3>H3: Do high-budget movies earn more profit?</h3>
+<p>
+Plotted <code>budget</code> vs <code>profit</code>.
+</p>
+<div class="highlight">
+⚠️ Some correlation — but budget doesn't guarantee success. Risk is high.
+</div>
+
+<h3>H4: Are high-budget films more popular?</h3>
+<p>
+Plotted <code>budget</code> vs <code>popularity</code>.
+</p>
+<div class="highlight">
+✅ Yes — big-budget films typically gain more attention and visibility.
+</div>
+
+<h2>🛠 Tools & Techniques</h2>
+<ul>
+  <li><strong>Libraries:</strong> pandas, seaborn, matplotlib</li>
+  <li><strong>Data transformation:</strong> splitting genres, feature engineering</li>
+  <li><strong>Visuals:</strong> bar plots, pie charts, regression plots</li>
+  <li><strong>Statistical method:</strong> Spearman correlation</li>
+</ul>
+
+<h2>✅ Final Thoughts</h2>
+<p>
+This project highlights how Python can turn entertainment data into compelling insights. Whether you're a film producer, analyst, or marketer, understanding genre performance, audience behavior, and financial trends can help drive smarter creative and business decisions.
+</p>
+
+<p>
+Want to explore the code behind the visuals? Check out my <a href="#">GitHub</a> or return to the <a href="#">project gallery</a> for more.
+</p>
+
+</body>
+</html>
