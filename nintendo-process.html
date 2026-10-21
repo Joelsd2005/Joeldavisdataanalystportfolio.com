@@ -1,0 +1,675 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Nintendo Dashboard Development - Joel Davis</title>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <style>
+        .process-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .process-section {
+            background: #fff;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+
+        .process-section h2 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .process-section h3 {
+            margin-top: 20px;
+        }
+
+        .process-section p,
+        .process-section li {
+            text-align: left;
+        }
+
+        .process-section ul,
+        .process-section ol {
+            padding-left: 25px;
+        }
+
+        .project-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .project-buttons a {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #007bff;
+            color: #fff !important;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            line-height: 1.5;
+            box-shadow: none;
+            transition: background 0.3s;
+        }
+
+        .project-buttons a:hover {
+            background: #0056b3;
+        }
+
+        .process-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .process-table th,
+        .process-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .process-table th {
+            background: #f2f2f2;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+
+    <div id="wrapper">
+
+        <!-- Header -->
+        <header id="header">
+            <a href="powerbi.html" class="logo">
+                Back to Power BI Projects
+            </a>
+        </header>
+
+        <!-- Main -->
+        <div id="main">
+            <article class="post featured">
+
+                <header class="major">
+                    <h1>
+                        Nintendo Game Performance Dashboard
+                    </h1>
+
+                    <p>
+                        A step-by-step breakdown of the
+                        development process, including data
+                        preparation, modelling, visualisation,
+                        interactivity and deployment.
+                    </p>
+                </header>
+
+                <div class="project-buttons">
+                    <a
+                      href="https://joelsd2005.github.io/nintendo-game-dashboard/"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                        View Interactive Dashboard
+                    </a>
+
+                    <a href="powerbi.html">
+                        Back to Projects
+                    </a>
+                </div>
+
+                <div class="process-container">
+
+                    <!-- Project Overview -->
+                    <section class="process-section">
+
+                        <h2>Project Overview</h2>
+
+                        <p>
+                            This project explores the
+                            performance of Nintendo video
+                            games through descriptive
+                            analytics and interactive
+                            data visualisations.
+                        </p>
+
+                        <p>
+                            The objective was to analyse
+                            patterns in critic scores,
+                            consumer ratings, gaming
+                            platforms, genres and
+                            release years.
+                        </p>
+
+                        <h3>Tools and Technologies</h3>
+
+                        <ul>
+                            <li>Power BI Desktop</li>
+                            <li>Power Query</li>
+                            <li>DAX</li>
+                            <li>HTML and CSS</li>
+                            <li>JavaScript and Chart.js</li>
+                            <li>JSON</li>
+                            <li>GitHub Pages</li>
+                        </ul>
+
+                    </section>
+
+                    <!-- Phase 1 -->
+                    <section class="process-section">
+
+                        <h2>
+                            Phase 1: Data Collection
+                            and Preparation
+                        </h2>
+
+                        <h3>Step 1: Importing the Dataset</h3>
+
+                        <p>
+                            The Nintendo video game dataset
+                            contained information including
+                            game titles, platforms,
+                            developers, genres, release
+                            years, Metacritic scores,
+                            user scores and ESRB ratings.
+                        </p>
+
+                        <ol>
+                            <li>Opened Power BI Desktop.</li>
+                            <li>
+                                Selected Home, Get Data
+                                and Text/CSV.
+                            </li>
+                            <li>Imported the Nintendo dataset.</li>
+                            <li>
+                                Opened Power Query using
+                                Transform Data.
+                            </li>
+                            <li>
+                                Inspected the dataset before
+                                creating visualisations.
+                            </li>
+                        </ol>
+
+                        <h3>
+                            Step 2: Cleaning and
+                            Transforming the Data
+                        </h3>
+
+                        <p>
+                            Power Query was used to inspect
+                            and prepare the data for analysis.
+                            This included reviewing data
+                            types, missing values and
+                            columns containing multiple
+                            categories.
+                        </p>
+
+                        <h3>
+                            Step 3: Separating Game Genres
+                        </h3>
+
+                        <p>
+                            One challenge involved games
+                            belonging to multiple genres.
+                            These were originally stored
+                            together in a single field,
+                            such as:
+                        </p>
+
+                        <p>
+                            <code>
+                                ['Action', 'Platformer']
+                            </code>
+                        </p>
+
+                        <p>
+                            A reference query was created
+                            from the original NintendoGames
+                            table. The genre column was
+                            cleaned and split into rows
+                            using commas as separators.
+                        </p>
+
+                        <p>
+                            This allowed individual genres
+                            to be analysed correctly in
+                            the Games by Genre chart.
+                        </p>
+
+                    </section>
+
+                    <!-- Phase 2 -->
+                    <section class="process-section">
+
+                        <h2>Phase 2: Data Modelling</h2>
+
+                        <h3>
+                            Step 4: Creating Table Relationships
+                        </h3>
+
+                        <p>
+                            A unique Game ID was created
+                            using an index column in the
+                            original NintendoGames table.
+                        </p>
+
+                        <p>
+                            The ID was retained in the
+                            transformed genre table,
+                            allowing the two tables to
+                            be connected.
+                        </p>
+
+                        <div class="table-wrapper">
+                            <table class="process-table">
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Configuration</th>
+                                </tr>
+                                <tr>
+                                    <td>Primary Table</td>
+                                    <td>NintendoGames</td>
+                                </tr>
+                                <tr>
+                                    <td>Secondary Table</td>
+                                    <td>Genre Reference Table</td>
+                                </tr>
+                                <tr>
+                                    <td>Matching Field</td>
+                                    <td>Game ID</td>
+                                </tr>
+                                <tr>
+                                    <td>Cardinality</td>
+                                    <td>One-to-Many (1:*)</td>
+                                </tr>
+                                <tr>
+                                    <td>Cross-Filter Direction</td>
+                                    <td>Both</td>
+                                </tr>
+                                <tr>
+                                    <td>Relationship Status</td>
+                                    <td>Active</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <p>
+                            Bidirectional filtering allowed
+                            genre selections to update
+                            the KPI cards and other
+                            dashboard visualisations.
+                        </p>
+
+                    </section>
+
+                    <!-- Phase 3 -->
+                    <section class="process-section">
+
+                        <h2>
+                            Phase 3: Dashboard Development
+                        </h2>
+
+                        <h3>
+                            Step 5: Designing the Layout
+                        </h3>
+
+                        <p>
+                            A custom Nintendo-themed layout
+                            was created using a red-and-white
+                            colour scheme.
+                        </p>
+
+                        <p>
+                            The dashboard included a title
+                            header, sidebar filters,
+                            KPI cards and chart panels.
+                        </p>
+
+                        <h3>Step 6: Creating KPI Cards</h3>
+
+                        <p>
+                            Four KPI cards were created
+                            to summarise game performance.
+                        </p>
+
+                        <div class="table-wrapper">
+                            <table class="process-table">
+                                <tr>
+                                    <th>KPI</th>
+                                    <th>Purpose</th>
+                                </tr>
+                                <tr>
+                                    <td>Total Games</td>
+                                    <td>
+                                        Number of unique
+                                        game titles
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Platforms</td>
+                                    <td>
+                                        Number of gaming
+                                        platforms
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Average Meta Score</td>
+                                    <td>
+                                        Average professional
+                                        critic rating
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Average User Score</td>
+                                    <td>
+                                        Average consumer rating
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <p>
+                            DAX measures and aggregation
+                            functions were used to
+                            calculate the KPI values.
+                        </p>
+
+                        <h3>
+                            Step 7: Creating Visualisations
+                        </h3>
+
+                        <ul>
+                            <li>
+                                <strong>Games by Platform:</strong>
+                                Horizontal bar chart showing
+                                the distribution of games
+                                across Nintendo platforms.
+                            </li>
+
+                            <li>
+                                <strong>
+                                    Metacritic Score vs User Score:
+                                </strong>
+                                Scatter plot comparing
+                                critic and consumer ratings.
+                            </li>
+
+                            <li>
+                                <strong>
+                                    Average Metacritic Score
+                                    by Release Year:
+                                </strong>
+                                Line chart showing changes
+                                in average critic scores
+                                over time.
+                            </li>
+
+                            <li>
+                                <strong>Games by Genre:</strong>
+                                Horizontal bar chart showing
+                                the distribution of games
+                                across individual genres.
+                            </li>
+                        </ul>
+
+                        <h3>
+                            Step 8: Adding Interactive Filters
+                        </h3>
+
+                        <p>
+                            Five dropdown slicers were
+                            added to the sidebar:
+                        </p>
+
+                        <ul>
+                            <li>Platform</li>
+                            <li>Release Year</li>
+                            <li>Developers</li>
+                            <li>Genres</li>
+                            <li>ESRB Rating</li>
+                        </ul>
+
+                        <p>
+                            These filters enabled users
+                            to explore specific subsets
+                            of the Nintendo dataset.
+                        </p>
+
+                        <h3>
+                            Step 9: Testing Interactivity
+                        </h3>
+
+                        <p>
+                            Each filter was tested to
+                            confirm that the KPI cards
+                            and charts responded correctly.
+                        </p>
+
+                        <p>
+                            An initial issue prevented
+                            the Genre slicer from filtering
+                            the entire dashboard.
+                        </p>
+
+                        <p>
+                            This was resolved by changing
+                            the relationship cross-filter
+                            direction from Single to Both.
+                        </p>
+
+                    </section>
+
+                    <!-- Phase 4 -->
+                    <section class="process-section">
+
+                        <h2>
+                            Phase 4: Web Dashboard Development
+                        </h2>
+
+                        <h3>
+                            Step 10: Creating the Web Version
+                        </h3>
+
+                        <p>
+                            Public Power BI embedding was
+                            restricted on the university
+                            account used for the project.
+                        </p>
+
+                        <p>
+                            To make the dashboard publicly
+                            accessible, its core functionality
+                            was recreated using HTML,
+                            CSS and JavaScript.
+                        </p>
+
+                        <ul>
+                            <li>
+                                HTML provided the page structure.
+                            </li>
+                            <li>
+                                CSS recreated the Nintendo
+                                colour scheme and layout.
+                            </li>
+                            <li>
+                                JavaScript handled filtering
+                                and KPI calculations.
+                            </li>
+                            <li>
+                                Chart.js rendered the
+                                interactive charts.
+                            </li>
+                            <li>
+                                JSON stored the game data
+                                used by the application.
+                            </li>
+                        </ul>
+
+                        <p>
+                            The web application used the
+                            source CSV data, so some
+                            totals differed from those
+                            displayed in Power BI.
+                        </p>
+
+                        <h3>
+                            Step 11: Deploying to GitHub Pages
+                        </h3>
+
+                        <ol>
+                            <li>
+                                Created a GitHub repository
+                                for the Nintendo dashboard.
+                            </li>
+                            <li>
+                                Uploaded index.html
+                                and games.json.
+                            </li>
+                            <li>
+                                Opened Settings and Pages.
+                            </li>
+                            <li>
+                                Selected deployment from
+                                the main branch and root folder.
+                            </li>
+                            <li>
+                                Tested the published website
+                                and interactive filters.
+                            </li>
+                        </ol>
+
+                    </section>
+
+                    <!-- Phase 5 -->
+                    <section class="process-section">
+
+                        <h2>Phase 5: Portfolio Integration</h2>
+
+                        <h3>
+                            Step 12: Creating a Portfolio Page
+                        </h3>
+
+                        <p>
+                            A dedicated Power BI Projects
+                            webpage was created within
+                            the existing Data Analyst Portfolio.
+                        </p>
+
+                        <p>
+                            The page included a Nintendo
+                            project card, a View Dashboard
+                            button and a Development Process
+                            button linking to this case study.
+                        </p>
+
+                        <p>
+                            This allows recruiters and
+                            portfolio visitors to explore
+                            the interactive dashboard and
+                            understand the technical
+                            development process.
+                        </p>
+
+                    </section>
+
+                    <!-- Skills -->
+                    <section class="process-section">
+
+                        <h2>
+                            Project Outcomes and Skills
+                        </h2>
+
+                        <p>
+                            This project demonstrates
+                            practical experience in:
+                        </p>
+
+                        <ul>
+                            <li>
+                                Data cleaning and transformation
+                            </li>
+                            <li>
+                                Power Query and data preparation
+                            </li>
+                            <li>
+                                Relational data modelling
+                            </li>
+                            <li>
+                                DAX measures and KPI development
+                            </li>
+                            <li>
+                                Interactive data visualisation
+                            </li>
+                            <li>
+                                Dashboard design and usability
+                            </li>
+                            <li>
+                                HTML, CSS and JavaScript
+                            </li>
+                            <li>
+                                GitHub Pages deployment
+                            </li>
+                        </ul>
+
+                        <p>
+                            The final outcome was an
+                            interactive Nintendo dashboard
+                            that can be accessed publicly
+                            without requiring a Power BI
+                            licence or Microsoft account.
+                        </p>
+
+                    </section>
+
+                </div>
+
+                <!-- Bottom Navigation -->
+                <div class="project-buttons">
+
+                    <a
+                      href="https://joelsd2005.github.io/nintendo-game-dashboard/"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                        View Dashboard
+                    </a>
+
+                    <a href="powerbi.html">
+                        Back to Power BI Projects
+                    </a>
+
+                </div>
+
+            </article>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <section>
+                <h3>Email</h3>
+                <p>
+                    <a href="mailto:davisjoel805@gmail.com">
+                        davisjoel805@gmail.com
+                    </a>
+                </p>
+            </section>
+        </footer>
+
+    </div>
+
+</body>
+</html>
