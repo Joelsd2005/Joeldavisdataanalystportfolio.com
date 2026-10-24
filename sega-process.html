@@ -1,0 +1,561 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Sega Dashboard Development Process - Joel Davis</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <style>
+        .case-study {
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .case-study h2 {
+            margin-top: 2.2rem;
+            border-bottom: 2px solid #e6e9ee;
+            padding-bottom: .5rem;
+        }
+
+        .case-study h3 {
+            margin-top: 1.5rem;
+        }
+
+        .case-study p,
+        .case-study li {
+            line-height: 1.8;
+        }
+
+        .case-study ul,
+        .case-study ol {
+            padding-left: 1.6rem;
+        }
+
+        .case-study .intro {
+            font-size: 1.1rem;
+        }
+
+        .case-study .meta {
+            background: #f4f6f9;
+            padding: 18px 22px;
+            border-radius: 10px;
+            margin: 24px 0;
+        }
+
+        .case-study .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .case-study .action-link {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 5px;
+            background: #07358C;
+            color: #fff !important;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .case-study .action-link.alt {
+            background: #303f56;
+        }
+
+        .case-study .action-link:hover {
+            filter: brightness(.85);
+        }
+
+        .case-study code {
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+
+<body class="is-preload">
+<div id="wrapper">
+
+    <header id="header">
+        <a href="PowerBI.html" class="logo">
+            Back to Power BI Projects
+        </a>
+    </header>
+
+    <div id="main">
+        <article class="post case-study">
+
+            <header class="major">
+                <h1>Sega Game Performance Dashboard</h1>
+                <p>Development Process &amp; Project Case Study</p>
+            </header>
+
+            <p class="intro">
+                This project examines Sega video game performance
+                using descriptive analytics and interactive data
+                visualisations. The analysis explores game releases,
+                platforms, genres, developers, Metacritic scores
+                and user ratings. I developed the analytical
+                dashboard in Power BI and recreated it as an
+                interactive website for my data analyst portfolio.
+            </p>
+
+            <div class="meta">
+                <strong>Tools:</strong>
+                Power BI Desktop, Power Query, DAX, HTML,
+                CSS, JavaScript, Chart.js and GitHub Pages.
+                <br />
+                <strong>Project type:</strong>
+                Data cleaning, descriptive analytics, relational
+                data modelling, dashboard development and
+                interactive web visualisation.
+            </div>
+
+            <div class="actions">
+                <a class="action-link"
+                   href="https://joelsd2005.github.io/sega-game-dashboard/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    View Interactive Dashboard
+                </a>
+
+                <a class="action-link alt" href="PowerBI.html">
+                    All Power BI Projects
+                </a>
+            </div>
+
+            <h2>1. Importing and Understanding the Dataset</h2>
+
+            <p>
+                I began by importing SegaGames.csv into Power BI
+                Desktop using Home, Get Data and Text/CSV.
+                The dataset contains 1,481 game-platform records
+                and 875 distinct game titles.
+            </p>
+
+            <p>
+                The dataset includes the following fields:
+            </p>
+
+            <ul>
+                <li>Game title</li>
+                <li>Platform</li>
+                <li>Release date</li>
+                <li>Metacritic score</li>
+                <li>User score</li>
+                <li>Developers</li>
+                <li>Genres</li>
+                <li>ESRB rating</li>
+                <li>Game information link</li>
+            </ul>
+
+            <p>
+                I reviewed the dataset to identify missing values,
+                confirm appropriate data types and prepare the
+                information for analysis.
+            </p>
+
+            <h2>2. Data Cleaning in Power Query</h2>
+
+            <p>
+                I used Power Query to transform the original
+                dataset into a format suitable for Power BI.
+            </p>
+
+            <ol>
+                <li>
+                    Checked that Metacritic and user scores were
+                    stored as numeric values.
+                </li>
+                <li>
+                    Preserved missing review scores as null values
+                    rather than replacing them with zero.
+                </li>
+                <li>
+                    Converted the release date into a suitable
+                    date format.
+                </li>
+                <li>
+                    Created a Release Year column to support
+                    time-series analysis and filtering.
+                </li>
+                <li>
+                    Applied Trim to text fields such as genres
+                    and developers to remove unnecessary spaces.
+                </li>
+            </ol>
+
+            <h3>Creating the Release Year Column</h3>
+
+            <p>
+                I extracted the release year from the original
+                date column to examine game performance over time.
+            </p>
+
+            <pre><code>Date.Year([date])</code></pre>
+
+            <p>
+                This Power Query expression extracts the year
+                from a date value.
+            </p>
+
+            <h2>3. Preparing Genre and Developer Data</h2>
+
+            <p>
+                Some records contained multiple genres or
+                developers within a single field. To analyse
+                these categories individually, I created
+                separate reference queries from the original
+                SegaGames table.
+            </p>
+
+            <h3>Genre Table</h3>
+
+            <ol>
+                <li>
+                    Created a reference of the SegaGames query.
+                </li>
+                <li>
+                    Renamed the query SegaGenres.
+                </li>
+                <li>
+                    Kept the Game ID and genres columns.
+                </li>
+                <li>
+                    Removed unnecessary brackets and quotation marks.
+                </li>
+                <li>
+                    Split comma-separated genres into individual rows.
+                </li>
+                <li>
+                    Trimmed spaces and removed blank genre values.
+                </li>
+            </ol>
+
+            <h3>Developer Table</h3>
+
+            <p>
+                I followed a similar process to create the
+                SegaDevelopers reference table, allowing
+                individual developers to be used in dashboard
+                filters without duplicating records in the
+                original fact table.
+            </p>
+
+            <h2>4. Creating the Data Model</h2>
+
+            <p>
+                I added a unique Game ID index to the original
+                SegaGames table before creating the reference
+                queries. This allowed the supporting tables
+                to retain matching identifiers.
+            </p>
+
+            <p>
+                The model contains three main tables:
+            </p>
+
+            <ul>
+                <li>
+                    <strong>SegaGames:</strong>
+                    Original game-platform records and
+                    numerical performance measures.
+                </li>
+                <li>
+                    <strong>SegaGenres:</strong>
+                    Individual genres linked by Game ID.
+                </li>
+                <li>
+                    <strong>SegaDevelopers:</strong>
+                    Individual developers linked by Game ID.
+                </li>
+            </ul>
+
+            <p>
+                I connected SegaGames to each supporting table
+                using one-to-many relationships based on Game ID.
+                Bidirectional filtering was used where required
+                so genre and developer slicers could filter
+                the dashboard's measures and charts.
+            </p>
+
+            <h2>5. Creating KPI Measures with DAX</h2>
+
+            <p>
+                I created four key performance indicators to
+                summarise Sega's game portfolio.
+            </p>
+
+            <h3>Total Games</h3>
+
+            <pre><code>Total Games =
+DISTINCTCOUNT('SegaGames'[title])</code></pre>
+
+            <p>
+                Counts unique game titles, preventing repeated
+                titles across different platforms from inflating
+                the total.
+            </p>
+
+            <h3>Total Platforms</h3>
+
+            <pre><code>Total Platforms =
+DISTINCTCOUNT('SegaGames'[platform])</code></pre>
+
+            <p>
+                Counts the number of distinct platforms
+                represented in the dataset.
+            </p>
+
+            <h3>Average Metacritic Score</h3>
+
+            <pre><code>Average Meta Score =
+AVERAGE('SegaGames'[meta_score])</code></pre>
+
+            <p>
+                Calculates the average critic score across
+                records containing valid numerical scores.
+            </p>
+
+            <h3>Average User Score</h3>
+
+            <pre><code>Average User Score =
+AVERAGE('SegaGames'[user_score])</code></pre>
+
+            <p>
+                Calculates the average consumer rating,
+                excluding blank scores.
+            </p>
+
+            <h2>6. Building the Dashboard Visualisations</h2>
+
+            <p>
+                I developed four visualisations to explore
+                different aspects of Sega game performance.
+            </p>
+
+            <h3>Games by Platform</h3>
+
+            <p>
+                A horizontal bar chart compares the number
+                of distinct game titles across different
+                gaming platforms.
+            </p>
+
+            <h3>Metacritic Score vs User Score</h3>
+
+            <p>
+                A scatter chart examines the relationship
+                between professional critic scores and
+                consumer ratings. This helps identify games
+                where critics and players have similar or
+                differing opinions.
+            </p>
+
+            <h3>Average Metacritic Score by Release Year</h3>
+
+            <p>
+                A line chart illustrates changes in average
+                critic reception over time, helping to
+                identify trends across release years.
+            </p>
+
+            <h3>Games by Genre</h3>
+
+            <p>
+                A bar chart compares the number of distinct
+                game titles associated with individual genres.
+                The separate SegaGenres table enables games
+                with multiple genres to appear in each
+                relevant category.
+            </p>
+
+            <h2>7. Adding Interactive Slicers</h2>
+
+            <p>
+                I added five slicers to allow users to
+                explore different segments of the dataset.
+            </p>
+
+            <ul>
+                <li>Platform</li>
+                <li>Release Year</li>
+                <li>Developer</li>
+                <li>Genre</li>
+                <li>ESRB Rating</li>
+            </ul>
+
+            <p>
+                These filters allow visitors to investigate
+                specific platforms, genres, developers,
+                time periods and age classifications.
+            </p>
+
+            <h2>8. Dashboard Design and Branding</h2>
+
+            <p>
+                I designed the report using a Sega-inspired
+                blue-and-white colour scheme.
+            </p>
+
+            <ul>
+                <li>
+                    Sega blue (#07358C) for the main
+                    dashboard background.
+                </li>
+                <li>
+                    White and light-grey panels for
+                    KPI cards and charts.
+                </li>
+                <li>
+                    Blue accents for chart elements
+                    and important values.
+                </li>
+                <li>
+                    A left sidebar for filters and
+                    a structured grid for visualisations.
+                </li>
+            </ul>
+
+            <p>
+                I retained the same KPI and chart structure
+                as my Nintendo dashboard. This creates a
+                consistent foundation for a future
+                Nintendo vs Sega comparative analysis.
+            </p>
+
+            <h2>9. Creating an Interactive Web Version</h2>
+
+            <p>
+                To make the dashboard publicly accessible
+                without requiring visitors to sign into
+                Power BI, I recreated the dashboard using
+                standard web technologies.
+            </p>
+
+            <ul>
+                <li>
+                    <strong>HTML:</strong>
+                    Structured the dashboard, filters
+                    and visualisation panels.
+                </li>
+                <li>
+                    <strong>CSS:</strong>
+                    Reproduced the Sega-inspired design
+                    and responsive layout.
+                </li>
+                <li>
+                    <strong>JavaScript:</strong>
+                    Managed interactive filtering and
+                    recalculated dashboard statistics.
+                </li>
+                <li>
+                    <strong>Chart.js:</strong>
+                    Rendered interactive charts.
+                </li>
+                <li>
+                    <strong>JSON:</strong>
+                    Stored the game data used by the
+                    web dashboard.
+                </li>
+            </ul>
+
+            <p>
+                The website version allows visitors to
+                interact with the Sega dataset directly
+                through their web browser.
+            </p>
+
+            <h2>10. Publishing Through GitHub Pages</h2>
+
+            <ol>
+                <li>
+                    Created a GitHub repository for the
+                    Sega Game Performance Dashboard.
+                </li>
+                <li>
+                    Uploaded the dashboard's index.html
+                    and games.json files.
+                </li>
+                <li>
+                    Configured GitHub Pages to host
+                    the website publicly.
+                </li>
+                <li>
+                    Linked the interactive dashboard
+                    to my Data Analyst Portfolio.
+                </li>
+                <li>
+                    Added this development-process page
+                    to document the analytical workflow.
+                </li>
+            </ol>
+
+            <h2>11. Skills Demonstrated</h2>
+
+            <ul>
+                <li>Data cleaning and transformation</li>
+                <li>Power Query</li>
+                <li>DAX measures</li>
+                <li>Relational data modelling</li>
+                <li>Descriptive business analytics</li>
+                <li>Interactive dashboard development</li>
+                <li>Data visualisation and storytelling</li>
+                <li>HTML, CSS and JavaScript</li>
+                <li>Chart.js</li>
+                <li>GitHub Pages deployment</li>
+            </ul>
+
+            <h2>12. Project Limitations and Future Development</h2>
+
+            <p>
+                The dataset represents the games included
+                in the source file rather than a complete
+                catalogue of every Sega release.
+                Missing review scores may also affect
+                the representativeness of averages.
+                Additionally, some titles appear across
+                multiple platforms, so the interpretation
+                of record-level averages differs from
+                averages calculated per unique title.
+            </p>
+
+            <p>
+                A future extension of this project will
+                compare Sega and Nintendo using
+                standardised metrics, common release
+                periods and consistent data-cleaning rules.
+            </p>
+
+            <div class="actions">
+                <a class="action-link"
+                   href="https://joelsd2005.github.io/sega-game-dashboard/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Explore Sega Dashboard
+                </a>
+
+                <a class="action-link alt" href="PowerBI.html">
+                    Back to Power BI Projects
+                </a>
+            </div>
+
+        </article>
+    </div>
+
+    <footer id="footer">
+        <section>
+            <h3>Email</h3>
+            <p>
+                <a href="mailto:davisjoel805@gmail.com">
+                    davisjoel805@gmail.com
+                </a>
+            </p>
+        </section>
+    </footer>
+
+</div>
+</body>
+</html>
