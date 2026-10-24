@@ -1,123 +1,147 @@
 
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 <head>
     <title>Power BI Projects - Joel Davis</title>
     <meta charset="utf-8" />
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/css/main.css" />
 
     <style>
         .project-container {
             display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
             gap: 20px;
             padding: 20px;
         }
 
         .project-card {
             background: #fff;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
             text-align: center;
         }
 
-        .project-buttons {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 20px;
+        .project-card h2 {
+            font-size: 1.3rem;
         }
 
-        .project-buttons a {
+        .project-card p {
+            line-height: 1.7;
+        }
+
+        .project-actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .project-actions a {
             display: inline-block;
             padding: 10px 15px;
             background: #007bff;
             color: #fff !important;
             text-decoration: none;
-            border: none;
+            border: 0;
             border-radius: 5px;
-            font-size: 14px;
-            line-height: 1.5;
-            box-shadow: none;
-            transition: background 0.3s;
+            font-weight: 600;
+            font-size: .9rem;
+            transition: background .2s;
         }
 
-        .project-buttons a:hover {
+        .project-actions a:hover {
             background: #0056b3;
+        }
+
+        .project-actions a.secondary {
+            background: #303f56;
+        }
+
+        .project-actions a.secondary:hover {
+            background: #172338;
         }
     </style>
 </head>
 
 <body class="is-preload">
-
     <div id="wrapper">
 
-        <!-- Header -->
         <header id="header">
-            <a href="index.html" class="logo">
-                Back to Portfolio
-            </a>
+            <a href="index.html" class="logo">Back to Portfolio</a>
         </header>
 
-        <!-- Main -->
         <div id="main">
             <article class="post featured">
 
                 <header class="major">
                     <h1>Power BI Projects</h1>
                     <p>
-                        Explore my Power BI projects below.
-                        Each dashboard demonstrates data
-                        analysis, visualisation and
-                        interactive reporting techniques.
+                        Explore my Power BI projects, featuring
+                        interactive dashboards, data analysis,
+                        visualisation and business insights.
                     </p>
                 </header>
 
                 <div class="project-container">
 
-                    <!-- Nintendo Dashboard -->
+                    <!-- Nintendo Project -->
                     <div class="project-card">
-
-                        <h2>
-                            Nintendo Game Performance Dashboard
-                        </h2>
+                        <h2>Nintendo Game Performance Dashboard</h2>
 
                         <p>
-                            An interactive dashboard analysing
-                            Nintendo video game performance
-                            across platforms, genres and release
-                            years. Includes Metacritic scores,
-                            user ratings, KPI cards and
-                            dynamic filtering.
+                            An interactive analysis of Nintendo games
+                            across platforms, genres and release years,
+                            comparing Metacritic scores and user ratings
+                            through dynamic charts and KPI cards.
                         </p>
 
-                        <div class="project-buttons">
-
-                            <a
-                              href="https://joelsd2005.github.io/nintendo-game-dashboard/"
-                              target="_blank"
-                              rel="noopener noreferrer">
+                        <div class="project-actions">
+                            <a href="https://joelsd2005.github.io/nintendo-game-dashboard/"
+                               target="_blank"
+                               rel="noopener noreferrer">
                                 View Dashboard
                             </a>
 
-                            <a href="nintendo-process.html">
+                            <a href="nintendo-process.html"
+                               class="secondary">
                                 Development Process
                             </a>
+                        </div>
+                    </div>
 
+                    <!-- Sega Project -->
+                    <div class="project-card">
+                        <h2>Sega Game Performance Dashboard</h2>
+
+                        <p>
+                            An interactive analysis of Sega's video game
+                            portfolio, examining platform distribution,
+                            critic and consumer ratings, release-year
+                            trends and genre performance through
+                            interactive visualisations.
+                        </p>
+
+                        <div class="project-actions">
+                            <a href="https://joelsd2005.github.io/sega-game-dashboard/"
+                               target="_blank"
+                               rel="noopener noreferrer">
+                                View Dashboard
+                            </a>
+
+                            <a href="sega-process.html"
+                               class="secondary">
+                                Development Process
+                            </a>
                         </div>
                     </div>
 
                 </div>
-
             </article>
         </div>
 
-        <!-- Footer -->
         <footer id="footer">
             <section>
                 <h3>Email</h3>
@@ -130,10 +154,6 @@
         </footer>
 
     </div>
-
 </body>
 </html>
 
-
-</body>
-</html>
